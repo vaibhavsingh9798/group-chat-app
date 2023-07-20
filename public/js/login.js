@@ -1,6 +1,6 @@
 let myForm = document.getElementById('loginForm')
 myForm.addEventListener('submit',handleFormData)
-
+let token = ''
 function handleFormData(e){
     e.preventDefault()
     let email = document.getElementById('email').value  
@@ -19,15 +19,17 @@ async function login(user){
     try{
     let response = await axios.post('http://localhost:3003/user/login',{user})
     console.log('resp',response)
-     
+     token = response.data.token;
+     console.log(token)
     }catch(err){
         console.log('err',err)
         success = err.response.data.success
         msg.innerHTML = err.response.data.message
     }
-
-    if(success)
-    alert('Signup successful!')
+    if(success){
+        localStorage.setItem('token',token)
+    alert('Login successful!')
+    }
     else{
         
     }

@@ -1,5 +1,6 @@
 const User = require('../models/users')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const saltRounds = 10; 
 
 exports.createUser = async (req,res,next) =>{
@@ -19,4 +20,33 @@ exports.createUser = async (req,res,next) =>{
         console.log(err)
         res.status(500).json({ error: 'Internal server error' });
     }
+}
+
+exports.loginUser = async (req,res) =>{
+     let {email,password} = req.body.user
+     try{
+     let user = await User.findOne({where:{email:email}})
+     console.log('user--',user)
+     if(!!user){
+         let matchPassword = await bcrypt.compare(password,user.password)
+         if(!!matchPassword){
+            res.status(200).json({success:true,token:genrateToken(user.id)})
+         }
+         else{
+            res.status(401).json({success:false,message:'Incorrect password'})
+         }
+     }
+     else{
+        res.status(404).json({success:false,message:"The email address you entered isn't connected to an account."})
+     }
+     }catch(err){
+        res.status(500).json({error: 'Internal server error'})
+     }
+}
+
+ function genrateToken(id){
+    console.log()
+   const token =  jwt.sign({id:id},process.env.JWT_SECRETKEY)
+   console.log('id,sc,token',id,process.env.JWT_SECRETKEY,token)
+   return token;
 }
