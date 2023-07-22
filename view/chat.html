@@ -9,6 +9,10 @@
         .full-height {
           height: 100vh;
         }
+        #msg-list{
+  height: 25rem; /* Set the desired height for the container */
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds the height */
+}
       </style>
 </head>
 <body>
@@ -16,9 +20,10 @@
     <div class=" text-center mt-3 p-4  text-success ">
         <h1 class="font-weight-bold">Chat App</h1>
       </div>
-            <div class="container  w-50 text-center">
-                <ul class="list-group" id="msg-list">
-                    
+            <div class="container w-50  text-center">
+               <ul class="list-group" id="login-list"></ul>
+                <ul class="list-group msg-list" id="msg-list"></ul>
+                  
             <div class="row justify-content-center fixed-bottom">
                 <div class="col-md-4 mb-4 text-center">
                 <input type="text" class="form-control bg-dark text-secondary border-secondary" id="msg">

@@ -1,6 +1,7 @@
 const User = require('../models/users')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const Login = require('../models/login')
 const saltRounds = 10; 
 
 exports.createUser = async (req,res,next) =>{
@@ -49,4 +50,18 @@ exports.loginUser = async (req,res) =>{
    const token =  jwt.sign({id:id},process.env.JWT_SECRETKEY)
    console.log('id,sc,token',id,process.env.JWT_SECRETKEY,token)
    return token;
+}
+
+exports.allLoginUser = async (req,res) => {
+
+
+    try{
+   let response = await Login.findAll()
+   if(response)
+   res.status(200).json({success:true,response:response})
+    }
+    catch(err){
+        res.status(500).json({message:"Internal Error"})
+    }
+   
 }
