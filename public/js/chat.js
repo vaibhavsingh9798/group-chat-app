@@ -52,6 +52,9 @@ async function onDomLoad(){
     
 }
 
+setInterval(()=>{
+    getMessages()
+},10000)
 async function getMessages(){
     let ul = document.getElementById('msg-list')
     ul.innerHTML=''
