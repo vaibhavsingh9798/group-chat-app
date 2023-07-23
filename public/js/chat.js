@@ -1,7 +1,10 @@
+
+
 let btn = document.getElementById('btn')
 btn.addEventListener('click',handleMessage)
 let token = sessionStorage.getItem('token')
 let rootUserId;
+let messages = [];
 async function handleMessage(e){
     e.preventDefault()
     let msg = document.getElementById('msg').value
@@ -9,8 +12,9 @@ async function handleMessage(e){
     console.log('msg',msg,token)
     try{
     let response = await axios.post('http://localhost:3003/message/',{msg},{headers:{"Authorization":token}})
-     console.log('msg resp',response)
-     getMessages()
+     console.log('msg resp...',response.data.response)
+    setMsgInLocal(response.data.response)
+    getMsgFromLocal()
     }catch(err){
         console.log(err)
     }
@@ -47,25 +51,17 @@ async function onDomLoad(){
     else
     li.appendChild(document.createTextNode(`${user[i].name} joined`))
     firstUl.appendChild(li)
-    getMessages()
+    getMsgFromLocal()
     } 
     
 }
 
-setInterval(()=>{
-    getMessages()
-},10000)
-async function getMessages(){
+ function getMsgFromLocal(){
     let ul = document.getElementById('msg-list')
     ul.innerHTML=''
-    try{
-    let {data} = await axios.get('http://localhost:3003/message',{headers:{"Authorization":token}}) 
-    console.log('msg resp123',data)
-    let messages = data.response
+    let messages = JSON.parse(localStorage.getItem('messages'))
+    if(messages)
     messages.map(msg => printMessage(msg))
-    }catch(err){
-        console.log(err)
-    }
 }
 
 function printMessage(msg){
@@ -83,3 +79,24 @@ function printMessage(msg){
     ul.appendChild(li)
      
 }
+
+function setMsgInLocal(msg){
+  
+    let {name,senderId,text} = msg
+    let oldMessage = JSON.parse(localStorage.getItem('messages'))
+    let newMessage = {senderId:senderId,name:name,text:text} //        {senderId,name,text}
+     if(!oldMessage){
+       localStorage.setItem('messages',JSON.stringify([newMessage]))
+     }
+     else{
+        let oldMessage = JSON.parse(localStorage.getItem('messages'))
+        for(let i=0;i<oldMessage.length;i++){
+           if(i>=9)
+            oldMessage.shift()
+        }
+        console.log(oldMessage.length,oldMessage)
+        oldMessage.push(newMessage)
+        localStorage.setItem('messages',JSON.stringify(oldMessage))
+    }
+}
+
