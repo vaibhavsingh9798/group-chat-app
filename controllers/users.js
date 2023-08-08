@@ -53,10 +53,20 @@ exports.loginUser = async (req,res) =>{
 }
 
 exports.allLoginUser = async (req,res) => {
-
-
     try{
    let response = await Login.findAll()
+   if(response)
+   res.status(200).json({success:true,response:response})
+    }
+    catch(err){
+        res.status(500).json({message:"Internal Error"})
+    }
+   
+}
+
+exports.allUser = async (req,res) => {
+    try{
+   let response = await User.findAll()
    if(response)
    res.status(200).json({success:true,response:response})
     }

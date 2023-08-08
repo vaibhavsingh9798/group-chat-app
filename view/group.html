@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Group</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <style>
+        .full-height {
+          height: 100vh;
+        }
+        .list-group{
+          height: 15rem; /* Set the desired height for the container */
+        overflow-y: auto;
+        }
+        .list-group .active{
+         font-weight: bold;
+         border-style: none;
+        }
+      </style>
+</head>
+<body>
+    <div class="p-2 bg-dark text-white full-height">
+    <div class=" text-center mt-1 p-2  text-success ">
+        <h1 class="font-weight-bold">Chat App</h1>
+      </div>
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <h2 class="text-center text-secondary">Create New Group</h2>
+        
+            <form id="groupForm" method="post">
+              <div class="form-group m-5">
+                <input type="text" class="form-control bg-dark text-secondary border-white border-top-0 border-right-0 border-left-0" id="subject" placeholder="Enter group subject">
+                <label for="subject" class="text-secondary font-weight-bold">Provide a group subject and optional group icon</label>
+              </div>
+              <h4 class="text-center text-secondary m-1"> Add Participants </h4>
+              <ul class="list-group mt-5" id="userList">
+                <!-- <li class="list-group-item bg-dark text-secondary" data-user="user1">Cras justo odio</li>
+                <li class="list-group-item bg-dark text-secondary" data-user="user2">Dapibus ac facilisis in</li>
+                <li class="list-group-item bg-dark text-secondary" data-user="user3">Morbi leo risus</li>
+                <li class="list-group-item bg-dark text-secondary" data-user="user4">Porta ac consectetur ac</li>
+                <li class="list-group-item bg-dark text-secondary" data-user="user5">Vestibulum at eros</li> -->
+           
+              </ul>
+          
+              <button type="submit" class="btn mt-5 btn-success btn-block" id="createBtn">Create</button>
+            </form>
+
+        
+
+          </div>
+        </div>
+      </div> 
+      </div> 
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js" integrity="sha512-06NZg89vaTNvnFgFTqi/dJKFadQ6FIglD6Yg1HHWAUtVFFoXli9BZL4q4EO1UTKpOfCfW5ws2Z6gw49Swsilsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="../public/js/group.js"></script>
+</body>
+</html>
+

@@ -27,9 +27,10 @@ async function login(user){
         msg.innerHTML = err.response.data.message
     }
     if(success){
-        sessionStorage.setItem('token',token)
+        // sessionStorage.setItem('token',token)
+        localStorage.setItem('token',token)
         alert('Login successful!')
-        location.assign('chat.html')
+        location.assign('chat2.html')
     }
    
 

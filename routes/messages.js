@@ -5,6 +5,6 @@ const router = express.Router()
 
 router.post('/',userauthonticate.authonticate,messageController.postMessage)
 
-router.get('/',userauthonticate.authonticate,messageController.getMessage)
+router.get('/:groupId',userauthonticate.authonticate,messageController.getMessage)
 
 module.exports = router;

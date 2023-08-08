@@ -3,45 +3,47 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 require('dotenv').config()
 
+const userauthonticate = require('./middleware/auth')
+
 const sequelize = require('./util/database')
 const userRoutes = require('./routes/users')
 const messageRoutes = require('./routes/messages')
-// const User = require('./models/users')
- const Message = require('./models/messages')
-const Login = require('./models/login')
+const groupRoutes = require('./routes/group')
+
+const Group = require('./models/group')
+const User = require('./models/users')
+const Message = require('./models/messages')
+const UserGroup = require('./models/usergroup')
 
 const app = express()
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({extended:false}))
 app.use(cors({origin:'*'}))
 
 
+
 app.use('/user',userRoutes)
+app.use(userauthonticate.authonticate)
 app.use('/message',messageRoutes)
+app.use('/group',groupRoutes)
 
 app.get('/',(req,res)=>{
     res.send('Home Page')
 })
 
-// User.hasMany(Message)
-// Message.belongsTo(User)
+User.belongsToMany(Group,{through: 'UserGroup'})
+Group.belongsToMany(User,{through: 'UserGroup'})
 
-const cleanupAndClose = async () => {
-    console.log('Performing cleanup before closing the app...');
-    try {
-      await Login.destroy({ truncate: true });
-      await Message.destroy({truncate: true})
-    } catch (err) {
-      console.error('Error during cleanup:', err);
-    } finally {
-      process.exit(0); // Exit the app gracefully
-    }
-  };
+// msg group 1 m
+Group.hasMany(Message)
+Message.belongsTo(Group)
 
-// Listen for the termination events
-process.on('SIGINT', cleanupAndClose);
-process.on('SIGTERM', cleanupAndClose);
+// user msg 1 m 
+
+ User.hasMany(Message,{foreginKey:'userId'}) //
+ Message.belongsTo(User)
+
 
 sequelize.sync() //{force:true}
 .then(()=>{

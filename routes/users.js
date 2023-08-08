@@ -10,5 +10,7 @@ router.post('/login',userController.loginUser)
 
 router.get('/loginUser',userauthonticate.authonticate,userController.allLoginUser)
 
+router.get('/all',userController.allUser)
+
 
 module.exports = router;
