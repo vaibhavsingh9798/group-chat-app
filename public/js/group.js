@@ -1,5 +1,6 @@
 let token = localStorage.getItem('token')
 const selectedUsers = [];
+let rootAdmin = localStorage.getItem('rootAdmin')
   document.addEventListener('DOMContentLoaded', async (e) => {
     e.preventDefault()
     // find all user  using axios.get()
@@ -11,7 +12,6 @@ const selectedUsers = [];
     }catch(err){
       console.log('err',err)
     }
-    
     let ul = document.getElementById('userList')
     users.map( user => {
     let li = document.createElement('li')
@@ -23,10 +23,8 @@ const selectedUsers = [];
 
     const addUsersBtn = document.getElementById('createBtn');
     const userItems = document.querySelectorAll('.list-group .list-group-item');
-    console.log('uitem',userItems)
-   
 
-    userItems.forEach((userItem) => {
+       userItems.forEach((userItem) => {
       userItem.addEventListener('click', () => {
         const userId = userItem.dataset.user;
         console.log('uid',userItem.dataset)
@@ -54,13 +52,12 @@ const selectedUsers = [];
       postGroupDetails(groupDetails)
       // Reset selectedUsers array after adding them to the group
       selectedUsers.length = 0;
-      //location.assign('chat2.html')
       userItems.forEach((userItem) => {
         userItem.classList.remove('active');
       });
       document.getElementById('subject').value =""
       alert('Group created')
-      window.history.back();
+       location.assign('chat2.html')
     });
   });
 
@@ -72,8 +69,5 @@ const selectedUsers = [];
     }catch(err){
       console.log('err',err)
     }
-    // if(!err){
-    //   alert('Group created')
-    // }
-   
   }
+  

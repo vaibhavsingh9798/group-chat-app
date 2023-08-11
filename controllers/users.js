@@ -31,7 +31,7 @@ exports.loginUser = async (req,res) =>{
      if(!!user){
          let matchPassword = await bcrypt.compare(password,user.password)
          if(!!matchPassword){
-            res.status(200).json({success:true,token:genrateToken(user.id)})
+            res.status(200).json({success:true,token:genrateToken(user.id),userId:user.id})
          }
          else{
             res.status(401).json({success:false,message:'Incorrect password'})

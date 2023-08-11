@@ -32,8 +32,8 @@ app.get('/',(req,res)=>{
     res.send('Home Page')
 })
 
-User.belongsToMany(Group,{through: 'UserGroup'})
-Group.belongsToMany(User,{through: 'UserGroup'})
+User.belongsToMany(Group,{through: UserGroup})
+Group.belongsToMany(User,{through: UserGroup})
 
 // msg group 1 m
 Group.hasMany(Message)

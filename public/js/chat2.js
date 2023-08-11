@@ -7,7 +7,8 @@ sendBtn.addEventListener('click',handleMessage)
 let token = localStorage.getItem('token')
 console.log('token',token)
 let groupId;
-
+let userId = localStorage.getItem('rootAdmin')
+console.log('data...',userId)
 async function handleClick(e){
   e.preventDefault();
   location.assign('group.html')
@@ -29,7 +30,6 @@ async function handleMessage(e){
   }catch(err){
       console.log(err)
   }
-  
 }
 
 document.addEventListener('DOMContentLoaded',async ()=>{
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     let groups = data.groups//['Group11','Group22','Group33']
     // message 
     let messages 
-  //   [
+  //   [ 
   //   [{name:'rahul',message:'how are you guys'},
   //   {name:'vaibhav',message:'I am good'},
   //   {name:'gagan',message:'I am fine'}],
@@ -74,6 +74,9 @@ document.addEventListener('DOMContentLoaded',async ()=>{
           parDiv.innerHTML=""
           console.log('click',list)
           groupId = list.getAttribute('id')
+         let groupName = list.textContent
+         localStorage.setItem('groupDetail',JSON.stringify({groupName,groupId}))
+         console.log('group..',groupName)
           console.log('id', groupId)
           try{
           let {data} = await axios.get(`http://localhost:3003/message/${groupId}`,{headers:{"Authorization":token}})
@@ -96,4 +99,10 @@ document.addEventListener('DOMContentLoaded',async ()=>{
         
     })
 
+})
+
+let detailsBtn = document.getElementById('detailsBtn')
+detailsBtn.addEventListener('click',() =>{
+  console.log('click')
+  location.assign('groupdetails.html')
 })
