@@ -17,6 +17,9 @@ const Message = sequelize.define('message',{
         allowNull:false,
         
     },
+    mediaUrl:{
+        type : Sequelize.STRING 
+    } 
   
 });
 

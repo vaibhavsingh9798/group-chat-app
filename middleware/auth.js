@@ -22,7 +22,6 @@ const authonticate = async (req,res,next)=>{
         else{
             res.status(400).json({message:'authontication failed'})
         }
-
     }catch(err){
         res.status(500).json({message:'Internal server error'})
     }

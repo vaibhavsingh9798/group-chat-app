@@ -30,7 +30,7 @@ async function login(user){
     if(success){
         localStorage.setItem('token',token)
         alert('Login successful!')
-        location.assign('chat2.html')
+        location.assign('chat.html')
     }
    
 

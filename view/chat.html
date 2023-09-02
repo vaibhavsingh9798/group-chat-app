@@ -4,39 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <style>
         .full-height {
           height: 100vh;
         }
-        #msg-list{
-  height: 25rem; /* Set the desired height for the container */
-  overflow-y: auto; /* Enable vertical scrolling when content exceeds the height */
-}
+.chat-box {
+      height: 25rem;
+      overflow-y: auto;
+    }
+    .message {
+      border-radius: .6rem;
+      padding: .4rem .5rem;
+      margin: .5rem;
+      background-color: #454545;
+      text-align: left;
+    }
+    .sender{
+        font-weight: bold;
+        color: #999999;
+         margin-bottom: 5px;
+    }
+    .user-item.selected {
+    background-color: #F2F2F2;
+    font-weight: bold;
+  }
+    .sidebar {
+      height: 25rem;
+      overflow-y: auto;
+      margin-right: -2rem;
+    }
+    .group-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .group-item {
+      border-radius: .6rem;
+      padding: .4rem .5rem;
+      margin: .5rem;
+      text-align: left;
+      background-color: #454545;
+      cursor: pointer;
+    }
+    .group-item:hover {
+      background-color: #999999;
+    }
+    img , video {
+      max-width: 7rem;
+    height: 7rem;
+    }
       </style>
 </head>
 <body>
     <div class="p-2 bg-dark text-white full-height">
     <div class=" text-center mt-3 p-4  text-success ">
-        <h1 class="font-weight-bold">Chat App</h1>
+        <h1 class="font-weight-bold">Group Chat App</h1>
       </div>
       <div class="text-right mr-5 mt-1">
-        <button type="button" class="bg-success text-white btn-outline-secondary p-2">New group</button>
+        <button type="button" class="bg-success text-white btn-outline-secondary p-2" id="createBtn">New group</button>
+        <button type="button" class="bg-success text-white btn-outline-secondary p-2 ml-2" id="detailsBtn">Group Details</button>
        </div>
-            <div class="container w-50  text-center">
-               <ul class="list-group" id="login-list"></ul>
-                <ul class="list-group msg-list" id="msg-list"></ul>
+            <div class="container w-60  text-center">
+                <div class="row mt-5">
+                    <div class="col-md-3">
+                      <div class="sidebar border">
+                        <ul class="group-list" id="groupList">
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="chat-box border" id="msg-box">    
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   
             <div class="row justify-content-center fixed-bottom">
                 <div class="col-md-4 mb-4 text-center">
                 <input type="text" class="form-control bg-dark text-secondary border-secondary" id="msg">
                 </div>
-                  <button class="btn btn-outline-secondary text-white pr-4 bg-success mb-4 " type="button" id="btn">Send</button>
+                <input type="file" id="myFile"  style="display: none">
+                <label for="myFile">
+                  <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAAChCAMAAACYjy+EAAAAWlBMVEX///9RUVF1dXVZWVnh4eFDQ0PGxsbT09O8vLxtbW1OTk7z8/NKSkru7u6QkJBxcXGvr6/5+flkZGR/f3/Nzc2fn5/n5+eKioqXl5c2Njba2tqpqalfX18+Pj7qdCPRAAADPUlEQVR4nO3c63aiMBQFYInEmhDlWmoZef/XHFDR1hIC5pwsOrP3n3atFvv1xMMlQTYbBEEQBEGQ/y518/Zycn5ekhVGvpzPjwM3sC5braPXo47MxDo1HrwuQh0TTmAupB9QK8FbxZ0nMIpSIdIjY7uUnmPc11AIxdcuydmnSe7CropcxHjrLRSXsLVLvPUE3moo2NqFTtgRWdqFQCiG8LQLYQ27djkxEP2F/f7wTvygH2iCGn4Rdu/FeoVCJb4RqatIO8ocOx3qGtITid+H13YhPbpQ7g95qkg/ytQ7HYZRJq4i2bkNG5FllPuBJjsZI6jhqJCuilw1pKsiwTFlOy6kqiKBMBpp5lsVKYgUQlsRaU4jKITaTiQ466YQdlW0dAtFu9AIu5zVaIrSl0gm1HqYQOu/Xr/tv9nGaxHa4BD+QqExy+bKwgtP2WnRqUZoocy6TfbteoXmeNnmtGCgwwrNbe+bL5i3DSo0xTDjcZi/fBBSqE1z36oxc9slpNDsv2y2n1vEgMJLGz+SzVzkCCc05dOGM7slmNCkz6eiM7sllFCff/6deNZKTCChltXIppWcQQwk/NbGj8xp6DBCeRq/ZMvf3Q0dRGgK69aFs4ohhEbZp/dr5XorBhBqM9YlQyrX4S+A0Owmt3ctoPML5bvjBRzdwi6Uzhnp/DhJ5Baawj3vkkw2NLNQ68b9Cptm6m4dXqHWU238yFtkJ/IKW1eXDPljv/pjFcrj7Fexdwun0JTzZycP1vNZRqHWS9aya9tbkVHYTh9LnmM7tjAK5bLbAerwNZSrr6E+N8kQ65Hv/huN7aKFs5f1NlXpJYWtnLvi8nOlUuvqIOv+UA9pxy9T+nm6++/Y/09/ofuCTVqFK7lO8RJGqCGEEEIIIYQQQgghhBBCCCGEELII/4XrZW1ZezwI938Xao2+rOr4OXVVrmeNPjJG/8ys+/xwhySEEEI4CH0/48MvZAVCCCGEEEIIIYQQQgghuXDt59hJwSw8e3+C2ft5X9MxwhdI8My0ySy8wW0secpJlILgk/Tez+6biFG+fXIlipanW3QriJ66dMiK1x8hOZEiI3zOTVztyEMywAiCIAiCIL8rfwE+/FNbn+GExgAAAABJRU5ErkJggg==" alt="Image" style="width: 4rem; height: 2.4rem;"></span>
+              </label>
+      
+                  <!-- // accept="image/*, video/*, audio/*" -->
+                <!-- style="display: none;" -->
+  
+                <!-- Custom button/icon to trigger file input -->
+                <!-- <label for="mediaFile" id="customFileButton">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPgBylT-HzCPJZldKHu5RXILXoElIxa_1fvqF50HSYykRPrn3KAj9qwN7ld4S9-gyi7DM&usqp=CAU" alt="Upload Logo">
+                </label> -->
+                  <button class="btn btn-outline-secondary text-white pr-4 bg-success mb-4 ml-2" type="button" id="sendBtn">Send</button>
                 </div>
             </div> 
       </div> 
-    
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js" integrity="sha512-06NZg89vaTNvnFgFTqi/dJKFadQ6FIglD6Yg1HHWAUtVFFoXli9BZL4q4EO1UTKpOfCfW5ws2Z6gw49Swsilsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+      <script src="socket.io/socket.io.js"></script>
       <script src="../public/js/chat.js"></script>
 </body>
 </html>
