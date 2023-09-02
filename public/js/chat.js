@@ -1,17 +1,17 @@
-const socket = io();
+// const socket = io();
 
 const groupDetail = JSON.parse(localStorage.getItem('groupDetail'))
 
-socket.on('connect', ()=>{
-    console.log('Server is Printing it to the client side',socket.id)
-     const groupId = groupDetail.groupId
-    socket.emit('joinRoom', groupId)
-})
+// socket.on('connect', ()=>{
+//     console.log('Server is Printing it to the client side',socket.id)
+//      const groupId = groupDetail.groupId
+//     socket.emit('joinRoom', groupId)
+// })
 
-socket.on('receivedMsg',(msg)=>{
-  console.log('soMsg',msg)
-  printMsg(msg);
- }) ;
+// socket.on('receivedMsg',(msg)=>{
+//   console.log('soMsg',msg)
+//   printMsg(msg);
+//  }) ;
 
 let token = localStorage.getItem('token')
 let btn = document.getElementById('createBtn')
@@ -42,7 +42,7 @@ async function handleMessage(e){
       if(!file){
    let {data} = await axios.post('http://localhost:3003/message/',{msg,groupId},{headers:{"Authorization":token}})
    console.log('msg resp...',data,data.message.text)
-   socket.emit('message', data.message.text);
+  //  socket.emit('message', data.message.text);
       }
       else{
         let formData = new FormData();
@@ -50,8 +50,8 @@ async function handleMessage(e){
         formData.append('msg',msg)
         let {data} = await axios.post(`http://localhost:3003/file/${groupId}`,formData,{headers:{"Authorization":token,'Content-Type': 'multipart/form-data'}}) 
         console.log('msg resp...',data)
-           socket.emit('message', data.mediaMsg.mediaUrl);
-          socket.emit('message', data.mediaMsg.text);
+          //  socket.emit('message', data.mediaMsg.mediaUrl);
+          // socket.emit('message', data.mediaMsg.text);
        
       }
   }catch(err){
