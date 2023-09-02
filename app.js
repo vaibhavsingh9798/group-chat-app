@@ -58,25 +58,25 @@ sequelize.sync() //{force:true}
     server.listen(process.env.PORT,()=>{
         console.log(`server started on port ${process.env.PORT}`)
     })
-    // io.on('connection',(socket) => {
-    //     console.log('user connected');
+    io.on('connection',(socket) => {
+        console.log('user connected');
 
-    //     socket.on('joinRoom', (groupId) => {
-    //         console.log('joining room:', groupId);
-    //         socket.join(groupId);
-    //     });
+        socket.on('joinRoom', (groupId) => {
+            console.log('joining room:', groupId);
+            socket.join(groupId);
+        });
         
-    //     socket.on('message', (msg) => {
+        socket.on('message', (msg) => {
 
-    //         console.log('groupId :', msg.groupId);
-    //         console.log('Received message:', msg.message);
-    //         io.to(msg.groupId).emit('receivedMsg', msg);
-    //     });
+            console.log('groupId :', msg.groupId);
+            console.log('Received message:', msg.message);
+            io.to(msg.groupId).emit('receivedMsg', msg);
+        });
         
-    //     socket.on('disconnect',()=>{
-    //         console.log('user disconnected');
-    //     });
-    // })
+        socket.on('disconnect',()=>{
+            console.log('user disconnected');
+        });
+    })
 
 })
 .catch(err => console.log(err))
