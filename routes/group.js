@@ -1,19 +1,18 @@
 const express = require('express')
 const route = express.Router()
 const groupController = require('../controllers/group')
+const userauthentication = require('../middleware/auth')
 
-route.post('/create',groupController.createGroup) 
+route.post('/create',userauthentication.authonticate,groupController.createGroup) 
 
-route.get('/all',groupController.getGroup)
+route.get('/all',userauthentication.authonticate,groupController.getGroup)
 
-route.get('/members/:groupId',groupController.getGroupMember)
+route.get('/members/:groupId',userauthentication.authonticate,groupController.getGroupMember)
 
-route.post('/makeadmin',groupController.makeAdmin)
+route.post('/makeadmin',userauthentication.authonticate,groupController.makeAdmin)
 
-route.post('/dismissadmin',groupController.dismissAdmin)
+route.post('/dismissadmin',userauthentication.authonticate,groupController.dismissAdmin)
 
-route.post('/removemember',groupController.removeMember) 
-
-route.post('/remove/:groupId')
+route.post('/removemember',userauthentication.authonticate,groupController.removeMember) 
 
 module.exports = route;

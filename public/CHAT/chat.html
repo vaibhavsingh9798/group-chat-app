@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Page</title>
+    <title>Group Chat Page</title>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
@@ -91,23 +91,15 @@
                 <label for="myFile">
                   <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAAChCAMAAACYjy+EAAAAWlBMVEX///9RUVF1dXVZWVnh4eFDQ0PGxsbT09O8vLxtbW1OTk7z8/NKSkru7u6QkJBxcXGvr6/5+flkZGR/f3/Nzc2fn5/n5+eKioqXl5c2Njba2tqpqalfX18+Pj7qdCPRAAADPUlEQVR4nO3c63aiMBQFYInEmhDlWmoZef/XHFDR1hIC5pwsOrP3n3atFvv1xMMlQTYbBEEQBEGQ/y518/Zycn5ekhVGvpzPjwM3sC5braPXo47MxDo1HrwuQh0TTmAupB9QK8FbxZ0nMIpSIdIjY7uUnmPc11AIxdcuydmnSe7CropcxHjrLRSXsLVLvPUE3moo2NqFTtgRWdqFQCiG8LQLYQ27djkxEP2F/f7wTvygH2iCGn4Rdu/FeoVCJb4RqatIO8ocOx3qGtITid+H13YhPbpQ7g95qkg/ytQ7HYZRJq4i2bkNG5FllPuBJjsZI6jhqJCuilw1pKsiwTFlOy6kqiKBMBpp5lsVKYgUQlsRaU4jKITaTiQ466YQdlW0dAtFu9AIu5zVaIrSl0gm1HqYQOu/Xr/tv9nGaxHa4BD+QqExy+bKwgtP2WnRqUZoocy6TfbteoXmeNnmtGCgwwrNbe+bL5i3DSo0xTDjcZi/fBBSqE1z36oxc9slpNDsv2y2n1vEgMJLGz+SzVzkCCc05dOGM7slmNCkz6eiM7sllFCff/6deNZKTCChltXIppWcQQwk/NbGj8xp6DBCeRq/ZMvf3Q0dRGgK69aFs4ohhEbZp/dr5XorBhBqM9YlQyrX4S+A0Owmt3ctoPML5bvjBRzdwi6Uzhnp/DhJ5Baawj3vkkw2NLNQ68b9Cptm6m4dXqHWU238yFtkJ/IKW1eXDPljv/pjFcrj7Fexdwun0JTzZycP1vNZRqHWS9aya9tbkVHYTh9LnmM7tjAK5bLbAerwNZSrr6E+N8kQ65Hv/huN7aKFs5f1NlXpJYWtnLvi8nOlUuvqIOv+UA9pxy9T+nm6++/Y/09/ofuCTVqFK7lO8RJGqCGEEEIIIYQQQgghhBBCCCGEELII/4XrZW1ZezwI938Xao2+rOr4OXVVrmeNPjJG/8ys+/xwhySEEEI4CH0/48MvZAVCCCGEEEIIIYQQQgghuXDt59hJwSw8e3+C2ft5X9MxwhdI8My0ySy8wW0secpJlILgk/Tez+6biFG+fXIlipanW3QriJ66dMiK1x8hOZEiI3zOTVztyEMywAiCIAiCIL8rfwE+/FNbn+GExgAAAABJRU5ErkJggg==" alt="Image" style="width: 4rem; height: 2.4rem;"></span>
               </label>
-      
-                  <!-- // accept="image/*, video/*, audio/*" -->
-                <!-- style="display: none;" -->
-  
-                <!-- Custom button/icon to trigger file input -->
-                <!-- <label for="mediaFile" id="customFileButton">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPgBylT-HzCPJZldKHu5RXILXoElIxa_1fvqF50HSYykRPrn3KAj9qwN7ld4S9-gyi7DM&usqp=CAU" alt="Upload Logo">
-                </label> -->
                   <button class="btn btn-outline-secondary text-white pr-4 bg-success mb-4 ml-2" type="button" id="sendBtn">Send</button>
                 </div>
             </div> 
       </div> 
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
-      <script src="socket.io/socket.io.js"></script>
-      <script src="../public/js/chat.js"></script>
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+      <script src="socket.io/socket.io.js"></script> -->
+      <script src="./chat.js"></script>
 </body>
 </html>
 

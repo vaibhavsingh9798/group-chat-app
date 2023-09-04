@@ -8,7 +8,6 @@ function handleFormData(e){
     let phoneNumber = document.getElementById('phoneNumber').value 
     let password = document.getElementById('password').value 
     let user = {name,email,phoneNumber,password}
-    console.log('user',user)
     signup(user)
      document.getElementById('name').value = ''
     document.getElementById('email').value = ''
@@ -21,11 +20,9 @@ async function signup(user){
    let msg = document.getElementById('err')
     msg.innerHTML=''
     try{
-    let response = await axios.post('http://localhost:3003/user/signup',{user})
-    console.log('resp',response)
-     
+    let response = await axios.post('http://16.170.218.137/user/signup',{user})
     }catch(err){
-        console.log('err',err)
+        console.err(err)
         success = err.response.data.success
         msg.innerHTML = err.response.data.message
     }

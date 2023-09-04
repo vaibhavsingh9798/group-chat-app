@@ -3,14 +3,12 @@ const selectedUsers = [];
 let rootAdmin = localStorage.getItem('rootAdmin')
   document.addEventListener('DOMContentLoaded', async (e) => {
     e.preventDefault()
-    // find all user  using axios.get()
     let users;
     try{
-    let {data} = await axios.get('http://localhost:3003/user/all',{headers:{"Authorization":token}})
-    console.log('resp--',data)
+    let {data} = await axios.get('http://16.170.218.137/user/all',{headers:{"Authorization":token}})
     users = data.response
     }catch(err){
-      console.log('err',err)
+      console.err(err)
     }
     let ul = document.getElementById('userList')
     users.map( user => {
@@ -27,7 +25,6 @@ let rootAdmin = localStorage.getItem('rootAdmin')
        userItems.forEach((userItem) => {
       userItem.addEventListener('click', () => {
         const userId = userItem.dataset.user;
-        console.log('uid',userItem.dataset)
         // Toggle user selection
         if (selectedUsers.includes(userId)) {
           const index = selectedUsers.indexOf(userId);
@@ -43,8 +40,6 @@ let rootAdmin = localStorage.getItem('rootAdmin')
     addUsersBtn.addEventListener('click', (e) => {
       e.preventDefault();
       let subjectName = document.getElementById('subject').value 
-      console.log('subjectName',subjectName)
-      console.log('Selected Users:',selectedUsers);
       let groupDetails = {
         name:subjectName,
         users:selectedUsers
@@ -57,17 +52,16 @@ let rootAdmin = localStorage.getItem('rootAdmin')
       });
       document.getElementById('subject').value =""
       alert('Group created')
-       location.assign('chat2.html')
+       location.assign('../CHAT/chat.html')
     });
   });
 
   async function postGroupDetails(groupDetails){
     console.log('details...',groupDetails)
     try{
-    const response = await axios.post('http://localhost:3003/group/create',groupDetails,{headers:{"Authorization":token}})
-    console.log('resp1',response)      
+    const response = await axios.post('http://16.170.218.137/group/create',groupDetails,{headers:{"Authorization":token}})    
     }catch(err){
-      console.log('err',err)
+      console.err('err',err)
     }
   }
   

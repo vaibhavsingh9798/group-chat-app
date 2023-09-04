@@ -12,11 +12,10 @@ let groupDetails = document.getElementById('groupName')
  
     let users;
     try{
-    let {data} = await axios.get(`http://localhost:3003/group/members/${groupId}`,{headers:{"Authorization":token}})
-    console.log('members',data.members)
+    let {data} = await axios.get(`http://16.170.218.137/group/members/${groupId}`,{headers:{"Authorization":token}})
     users = data.members
     }catch(err){
-      console.log('err',err)
+      console.err(err)
     }
     let ul = document.getElementById('groupMember')
     users.map( user => {
@@ -50,35 +49,32 @@ let groupDetails = document.getElementById('groupName')
 
 async function handleClickLi(e){
     e.preventDefault();
-    console.log('click',e.target.getAttribute('class'))
-    console.log('click',e.target.getAttribute('id'))
     let userId = e.target.getAttribute('id')
     let details = {userId,groupId}
     let classVal = e.target.getAttribute('class')
-    console.log('isRootUserAdmin',isRootUserAdmin)
     try{
       if(isRootUserAdmin){
   if(classVal == 'make btn btn-secondary float-right'){
-       let {data} = await axios.post(`http://localhost:3003/group/makeadmin`,details,{headers:{"Authorization":token}})
+       let {data} = await axios.post(`http://16.170.218.137/group/makeadmin`,details,{headers:{"Authorization":token}})
        handleDomLoaded(e)
   }
   else if(classVal == 'dismiss btn btn-secondary float-right'){
-        let {data} = await axios.post(`http://localhost:3003/group/dismissadmin`,details,{headers:{"Authorization":token}})
+        let {data} = await axios.post(`http://16.170.218.137/group/dismissadmin`,details,{headers:{"Authorization":token}})
         handleDomLoaded(e)
   }
   else if(classVal == 'remove btn btn-secondary mr-2 float-right'){
-       let {data} = await axios.post(`http://localhost:3003/group/removemember`,details,{headers:{"Authorization":token}})
+       let {data} = await axios.post(`http://16.170.218.137/group/removemember`,details,{headers:{"Authorization":token}})
        handleDomLoaded(e) 
   }
 }
 }catch(err){
-  console.log('err',err)
+  console.err('err',err)
 }
 }
 
 let goToHome = document.getElementById('homeBtn')
 goToHome.addEventListener('click',async(e)=>{
-  location.assign('chat2.html')
+  location.assign('../CHAT/chat.html')
 })
 
 

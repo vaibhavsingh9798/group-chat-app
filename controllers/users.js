@@ -15,11 +15,9 @@ exports.createUser = async (req,res,next) =>{
         }
     else{
         res.status(400).json({success:false,message:'User already exist'})
-        console.log('exist user')
     }
     }catch(err){
-        console.log(err)
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({success:false, error: 'Internal server error' });
     }
 }
 
@@ -27,7 +25,6 @@ exports.loginUser = async (req,res) =>{
      let {email,password} = req.body.user
      try{
      let user = await User.findOne({where:{email:email}})
-     console.log('user--',user)
      if(!!user){
          let matchPassword = await bcrypt.compare(password,user.password)
          if(!!matchPassword){
@@ -46,9 +43,7 @@ exports.loginUser = async (req,res) =>{
 }
 
  function genrateToken(id){
-    console.log()
    const token =  jwt.sign({id:id},process.env.JWT_SECRETKEY)
-   console.log('id,sc,token',id,process.env.JWT_SECRETKEY,token)
    return token;
 }
 
