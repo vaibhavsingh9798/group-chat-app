@@ -5,7 +5,7 @@ let rootAdmin = localStorage.getItem('rootAdmin')
     e.preventDefault()
     let users;
     try{
-    let {data} = await axios.get('http://16.170.218.137/user/all',{headers:{"Authorization":token}})
+    let {data} = await axios.get('http://16.170.218.137:3003/user/all',{headers:{"Authorization":token}})
     users = data.response
     }catch(err){
       console.err(err)
@@ -59,7 +59,7 @@ let rootAdmin = localStorage.getItem('rootAdmin')
   async function postGroupDetails(groupDetails){
     console.log('details...',groupDetails)
     try{
-    const response = await axios.post('http://16.170.218.137/group/create',groupDetails,{headers:{"Authorization":token}})    
+    const response = await axios.post('http://16.170.218.137:3003/group/create',groupDetails,{headers:{"Authorization":token}})    
     }catch(err){
       console.err('err',err)
     }

@@ -12,7 +12,7 @@ let groupDetails = document.getElementById('groupName')
  
     let users;
     try{
-    let {data} = await axios.get(`http://16.170.218.137/group/members/${groupId}`,{headers:{"Authorization":token}})
+    let {data} = await axios.get(`http://16.170.218.137:3003/group/members/${groupId}`,{headers:{"Authorization":token}})
     users = data.members
     }catch(err){
       console.err(err)
@@ -55,15 +55,15 @@ async function handleClickLi(e){
     try{
       if(isRootUserAdmin){
   if(classVal == 'make btn btn-secondary float-right'){
-       let {data} = await axios.post(`http://16.170.218.137/group/makeadmin`,details,{headers:{"Authorization":token}})
+       let {data} = await axios.post(`http://16.170.218.137:3003/group/makeadmin`,details,{headers:{"Authorization":token}})
        handleDomLoaded(e)
   }
   else if(classVal == 'dismiss btn btn-secondary float-right'){
-        let {data} = await axios.post(`http://16.170.218.137/group/dismissadmin`,details,{headers:{"Authorization":token}})
+        let {data} = await axios.post(`http://16.170.218.137:3003/group/dismissadmin`,details,{headers:{"Authorization":token}})
         handleDomLoaded(e)
   }
   else if(classVal == 'remove btn btn-secondary mr-2 float-right'){
-       let {data} = await axios.post(`http://16.170.218.137/group/removemember`,details,{headers:{"Authorization":token}})
+       let {data} = await axios.post(`http://16.170.218.137:3003/group/removemember`,details,{headers:{"Authorization":token}})
        handleDomLoaded(e) 
   }
 }

@@ -38,7 +38,7 @@ async function handleMessage(e){
   
   try{
       if(!file){
-   let {data} = await axios.post('http://16.170.218.137/message/',{msg,groupId},{headers:{"Authorization":token}})
+   let {data} = await axios.post('http://16.170.218.137:3003/message/',{msg,groupId},{headers:{"Authorization":token}})
  
   //  socket.emit('message', data.message.text);
       }
@@ -46,7 +46,7 @@ async function handleMessage(e){
         let formData = new FormData();
         formData.append('myFile',file)
         formData.append('msg',msg)
-        let {data} = await axios.post(`http://16.170.218.137/file/${groupId}`,formData,{headers:{"Authorization":token,'Content-Type': 'multipart/form-data'}}) 
+        let {data} = await axios.post(`http://16.170.218.137:3003/file/${groupId}`,formData,{headers:{"Authorization":token,'Content-Type': 'multipart/form-data'}}) 
           //  socket.emit('message', data.mediaMsg.mediaUrl);
           // socket.emit('message', data.mediaMsg.text);
        
@@ -59,7 +59,7 @@ async function handleMessage(e){
 document.addEventListener('DOMContentLoaded',async ()=>{
   let groups;
     try{
-    let {data} = await axios.get('http://16.170.218.137/group/all',{headers:{"Authorization":token}})
+    let {data} = await axios.get('http://16.170.218.137:3003/group/all',{headers:{"Authorization":token}})
      groups = data.groups
     }catch(err){
       console.err(err)
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     
         let messages;
           try{
-          let {data} = await axios.get(`http://16.170.218.137/message/${groupId}`,{headers:{"Authorization":token}})
+          let {data} = await axios.get(`http://16.170.218.137:3003/message/${groupId}`,{headers:{"Authorization":token}})
           messages = data.messages
           messages.map((item,ind2) =>{ 
           printMsg(item)
