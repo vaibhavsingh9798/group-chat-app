@@ -20,7 +20,7 @@ async function signup(user){
    let msg = document.getElementById('err')
     msg.innerHTML=''
     try{
-    let response = await axios.post('http://16.170.218.137:3003/user/signup',{user})
+    let response = await axios.post('http://localhost:3003/user/signup',{user})
     }catch(err){
         console.err(err)
         success = err.response.data.success

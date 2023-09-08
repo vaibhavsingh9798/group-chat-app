@@ -17,7 +17,7 @@ async function login(user){
    let msg = document.getElementById('err')
     msg.innerHTML=''
     try{
-    let response = await axios.post(`http://16.170.218.137:3003/user/login`,{user})
+    let response = await axios.post(`http://localhost:3003/user/login`,{user})
      token = response.data.token;
      localStorage.setItem('rootAdmin',response.data.userId)
     }catch(err){

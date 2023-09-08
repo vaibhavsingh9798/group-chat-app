@@ -4,15 +4,15 @@ let isRootUserAdmin = false
 let {groupName,groupId} = JSON.parse( localStorage.getItem('groupDetail') )
 let groupDetails = document.getElementById('groupName')
 
-
+let users;
   document.addEventListener('DOMContentLoaded',handleDomLoaded)
   async function handleDomLoaded(e) {
     e.preventDefault()
      groupDetails.appendChild(document.createTextNode(`${groupName}`)) 
  
-    let users;
+   
     try{
-    let {data} = await axios.get(`http://16.170.218.137:3003/group/members/${groupId}`,{headers:{"Authorization":token}})
+    let {data} = await axios.get(`http://localhost:3003/group/members/${groupId}`,{headers:{"Authorization":token}})
     users = data.members
     }catch(err){
       console.err(err)
@@ -45,6 +45,7 @@ let groupDetails = document.getElementById('groupName')
     ul.appendChild(li)
     li.addEventListener('click',handleClickLi)
     })
+  
 }
 
 async function handleClickLi(e){
@@ -53,17 +54,17 @@ async function handleClickLi(e){
     let details = {userId,groupId}
     let classVal = e.target.getAttribute('class')
     try{
-      if(isRootUserAdmin){
+      if(isRootUserAdmin || users.length == 1){
   if(classVal == 'make btn btn-secondary float-right'){
-       let {data} = await axios.post(`http://16.170.218.137:3003/group/makeadmin`,details,{headers:{"Authorization":token}})
+       let {data} = await axios.post(`http://localhost:3003/group/makeadmin`,details,{headers:{"Authorization":token}})
        handleDomLoaded(e)
   }
   else if(classVal == 'dismiss btn btn-secondary float-right'){
-        let {data} = await axios.post(`http://16.170.218.137:3003/group/dismissadmin`,details,{headers:{"Authorization":token}})
+        let {data} = await axios.post(`http://localhost:3003/group/dismissadmin`,details,{headers:{"Authorization":token}})
         handleDomLoaded(e)
   }
   else if(classVal == 'remove btn btn-secondary mr-2 float-right'){
-       let {data} = await axios.post(`http://16.170.218.137:3003/group/removemember`,details,{headers:{"Authorization":token}})
+       let {data} = await axios.post(`http://localhost:3003/group/removemember`,details,{headers:{"Authorization":token}})
        handleDomLoaded(e) 
   }
 }
